@@ -1,25 +1,25 @@
 import Pet from "./Pet";
 
 const Results = ({ pets }) => {
-    return (
-        <div className="search">
-            {!pets.length ? (               //ternary operator    condition ? ifTrue : ifFalse
-                <h1>No Pets Found</h1>
-            ) : (
-                pets.map(pet => (
-                    <Pet
-                        animal={pet.animal}
-                        id={pet.id}
-                        name={pet.name}
-                        breed={pet.breed}
-                        images={pet.images}
-                        location={`${pet.city}, ${pet.state}`}
-                        key={pet.id}
-                    />
-                ))
-            )}
-        </div>
-    )
-}
+  return (
+    <div className="lg:-cols-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {!pets.length ? ( //ternary operator    condition ? ifTrue : ifFalse
+        <h1>No Pets Found</h1>
+      ) : (
+        pets.map((pet) => (
+          <Pet
+            animal={pet.animal}
+            id={pet.id}
+            name={pet.name}
+            breed={pet.breed}
+            images={pet.images}
+            location={`${pet.city}, ${pet.state}`}
+            key={pet.id}
+          />
+        ))
+      )}
+    </div>
+  );
+};
 
 export default Results;
