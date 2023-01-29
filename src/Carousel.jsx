@@ -8,30 +8,30 @@ class Carousel extends Component {
   static defaultProps = {
     images: ["http://pets-images.dev-apis.com/pets/none.jpg"],
   };
-
-  handleIndexClick = (event) => {
+  
+  handleIndexClick = event => {
     this.setState({
-      active: +event.target.dataset.index,
+      active: +event.target.dataset.index
     });
   };
 
   render() {
     const { active } = this.state;
     const { images } = this.props;
-
+    
     return (
-      <div className="flex w-64 items-center">
-        <img className="mr-10 rounded-md" src={images[active]} alt="animal" />
-        <div className="justify-right flex h-24 w-24 gap-8 rounded-full">
+      <div className="carousel">
+        <img src={images[active]} alt="animal" />
+        <div className="carousel-smaller">
           {images.map((photo, index) => (
             // eslint-disable-next-line
-            <img
-              onClick={this.handleIndexClick}
-              data-index={index}
-              key={photo}
-              src={photo}
-              className="rounded-full border-2 border-black"
-              alt="animal thumbnail"
+            <img 
+                onClick={this.handleIndexClick}
+                data-index={index}
+                key={photo}
+                src={photo}
+                className={index === active ? "active" : ""}
+                alt="animal thumbnail"
             />
           ))}
         </div>
