@@ -11,17 +11,16 @@ import { PetAPIResponse } from "./APIResponsesTypes";
 const Details = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
-  // eslint-disable-next-line no-unused-vars
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
   const { id } = useParams();
+  const results = useQuery<PetAPIResponse>(["details", id], fetchPet); //useQuery(["cache key",queryKey], function)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
   if (!id) {
     throw new Error(
       "why did you not give me an id I wanted an id? I have no id"
     );
   }
-  const results = useQuery(["details", id], fetchPet); //useQuery(["cache key",queryKey], function)
 
   if (results.isLoading) {
     return (
@@ -31,7 +30,10 @@ const Details = () => {
     );
   }
 
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+  if (!pet) {
+    throw new Error("no pet lol");
+  }
 
   return (
     <div className="details">
@@ -66,10 +68,10 @@ const Details = () => {
   );
 };
 
-export default function DetailsErrorBoundary(props) {
+export default function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <Details />
     </ErrorBoundary>
   );
 }
