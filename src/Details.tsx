@@ -6,21 +6,21 @@ import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 import Modal from "./Modal";
-import { PetAPIResponse } from "./APIResponsesTypes";
 
 const Details = () => {
-  const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
   const { id } = useParams();
-  const results = useQuery<PetAPIResponse>(["details", id], fetchPet); //useQuery(["cache key",queryKey], function)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
   if (!id) {
     throw new Error(
       "why did you not give me an id I wanted an id? I have no id"
     );
   }
+
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+  const results = useQuery(["details", id], fetchPet); //useQuery(["cache key",queryKey], function)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
   if (results.isLoading) {
     return (
